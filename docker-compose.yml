@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: php_apache_app
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+
+  db:
+    image: mysql:5.7
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # Asegúrate de tener esta línea
+      MYSQL_DATABASE: calificaciones_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - ./formulario_db.sql:/docker-entrypoint-initdb.d/formulario_db.sql
+    ports:
+      - "3306:3306"
